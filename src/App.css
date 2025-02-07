@@ -1,0 +1,73 @@
+/* 
+  Style your elements by creating CSS classes here.
+  Below, you can see an example of a class called "menu" that changes the color of the text to blue. Modify according to your needs.
+*/
+
+body {
+  background: linear-gradient(135deg, #fad0c4, #ff9a9e);
+}
+.menu-title{
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 60px;
+  margin-top: 60px;
+  text-align: center;
+  color : rgb(44, 1, 48);
+}
+
+.menu-subtitle {
+font-family: 'Brush Script MT', cursive;
+  font-size: 40px;
+font-style: italic;
+color: #821e28;
+font-weight: bold;
+margin-top: 80px;
+text-align: center;
+}
+.menu-tagline {
+font-family: Arial, sans-serif;
+font-size: xx-large;
+font-weight: bolder;
+margin-top: 35px;
+color: #041d36;
+margin-bottom: 85px;
+text-align: center;
+}
+
+.menu-image {
+  width: 200px;
+  height: 200px;
+  object-fit: cover; 
+  border-radius: 10px; /* Adds rounded corners */
+  display: block;
+  text-align: center;
+}
+
+.menu-item{
+  margin-bottom: 40px; 
+  font-weight: bold;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  color: black;
+}
+
+.menu-description{
+  color: #1e74c0;
+  margin-bottom: 15px;
+  font-family:cursive;
+
+}
+
+.menu-price {
+  font-weight: bold;
+  font-size: 1.1rem; 
+  margin-top: 60px;
+
+}
+
+.menu-button{
+  background-color: lightblue;
+  color: rgb(0, 0, 0);
+  border-radius: 5px; /* Adds rounded corners */
+}
+.menu-button:hover {
+  background-color: #69727c;
+}
