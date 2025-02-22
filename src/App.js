@@ -1,5 +1,6 @@
 import './App.css';
 import MenuItem from './components/MenuItem';
+import { useState } from 'react';
 
 // import 'bootstrap/dist/css/bootstrap.min.css'; // This imports bootstrap css styles. You can use bootstrap or your own classes by using the className attribute in your elements.
 
@@ -78,14 +79,65 @@ const menuItems = [
   }
 ];
 
+export default function App(){
 
-function App() {
+    const[cart, setCart] = useState({});
+    const[subtotal, setSubtotal] = useState(0);
+
+    const add = (title, price) => {
+      setCart((prevCart) => ({
+        ...prevCart,
+        [title]: (prevCart[title] || 0) + 1
+      }));
+      setSubtotal((prevSubtotal) => prevSubtotal + price);
+    };
+
+    const remove = (title, price) => {
+      setCart((prevCart) => {
+        if (!prevCart[title]) return prevCart;
+        const updatedCart = { ...prevCart };
+        if (updatedCart[title] === 1) {
+          delete updatedCart[title];
+        } else {
+          updatedCart[title] -= 1;
+        }
+        return updatedCart;
+      });
+      setSubtotal((prevSubtotal) => Math.max(0, prevSubtotal - price));
+    };
+
+    const placeOrder = () =>{
+      if(Object.keys(cart).length === 0){
+        alert("No items in the cart!")
+        return;
+      }
+
+    let orderSummary = "Your order has been placed!\n\n";
+    for (let item in cart) {
+      orderSummary += `${item}: ${cart[item]}\n`;
+    }
+    orderSummary += `\nTotal: $${subtotal.toFixed(2)}`;
+
+    alert(orderSummary); // Show alert with order details
+
+    // Reset cart after order is placed
+    setCart({});
+    setSubtotal(0);
+
+    };
+
+    const clearAll = () =>{
+      setCart({});
+      setSubtotal(0);
+    };
+
+
   return (
     <div>
       <div class="container py-4">
         <h1 className='menu-title'>&#x1F338;Blossom Cafe</h1>
-        <h2 class="menu-subtitle">Delicious, From-Scratch Recipes Close at Hand</h2>
-        <h3 class="menu-tagline">The Fresh Choice of UT!</h3>
+        <h2 className="menu-subtitle">Delicious, From-Scratch Recipes Close at Hand</h2>
+        <h3 className="menu-tagline">The Fresh Choice of UT!</h3>
       </div>
       <div className="menu-item">
         {/* Loop through menuItems and render each MenuItem dynamically */}
@@ -96,12 +148,32 @@ function App() {
             description={item.description}
             imageName={item.imageName}
             price={item.price}
+            quantity={cart[item.title] || 0}
+            add={add}
+            remove={remove}
           />
         ))}
       </div>
+
+      <div className ="container py-4">
+        <div className = "row justify-content-between align-items-center">
+        <div className="subtotal col-auto">
+          <h4>Subtotal: ${subtotal.toFixed(2)}</h4>
+        </div>
+         <div className = "col 10" style={{paddingLeft: "2rem" }}>
+          <button className="order-button" onClick={placeOrder}>
+              Place Order
+            </button>
+        </div>
+          <div className = "col 11">
+            <button className="clear-button" onClick={clearAll}>
+                  Clear All
+            </button>
+          </div>
+      </div>
+    </div>
     </div>
     
   );
-}
+  }
 
-export default App;

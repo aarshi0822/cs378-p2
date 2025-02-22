@@ -7,31 +7,34 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // Use bootstrap to style the elements so that it looks like the mockup in the assignment.
 // Hint: You can use the image name to get the image from the images folder.
 
-const MenuItem = ({ title, description, imageName, price }) => {
+const MenuItem = ({ title, description, imageName, price, quantity, add, remove }) => {
   return (
     <div class="container py-4">
         <div className="row menu-item align-items-start">
-        
-        {/* Image on the Left */}
-        <div className="col-2">
+                <div className="col-2">
             <img className="menu-image" src={`/images/${imageName}`} alt={title} />
         </div>
-        
-
-        {/* Title & Description on the Right */}
         <div className="col-10" style={{ paddingLeft: "10rem" }}>
             <h2 className="menu-item-title text-align left">{title}</h2>
             <p className="menu-description">{description}</p>
             <div className ="row menu-item align-items-end">
-                <p className="menu-price">${price}</p>
-            </div>
-
+                <span className="menu-price">${price}</span>
+                {/* adding the add and remove buttons */}
+                <div className="col- 11 d-flex align-items-center justify-content-center gap-2" >
+                    <button 
+                        className="menu-button"
+                        onClick={() => remove(title,price)}
+                        disabled={quantity === 0}
+                    >-</button>
+                    <span className="px-2">{quantity}</span>
+                    <button 
+                        className="menu-button"
+                        onClick={() => add(title,price)}
+                    >+</button>
+                </div>
+             </div>
         </div>
 
-        {/* Price Below */}
-        <div className="col-10 d-flex justify-content-between align-items-center" style={{ paddingLeft: "500px" }}>
-            <button className= "menu-button">Add</button>
-        </div>
         
         </div>
     </div>
@@ -40,3 +43,7 @@ const MenuItem = ({ title, description, imageName, price }) => {
 };
 
 export default MenuItem;
+
+
+
+
